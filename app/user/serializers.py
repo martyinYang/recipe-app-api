@@ -7,11 +7,15 @@ from django.utils.translation import gettext_lazy as translate
 
 from rest_framework import serializers
 
+
 class UserSerializer(serializers.ModelSerializer):
-    class Meta: # here we tell drf what is the model, fields and extra arguments that we want to pass to the serializer
+    """here we tell drf what is the model,
+    fields and extra arguments that we want to pass to the serializer """
+    class Meta:
         model = get_user_model()
         fields = ['email', 'password', 'name']
-        extra_kwargs = {'password': {'write_only': True, 'min_length': 5}} #customization to the field
+        #  customization to the field
+        extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):
         return get_user_model().objects.create_user(**validated_data)
@@ -44,7 +48,8 @@ class AuthTokenSerializer(serializers.Serializer):
         )
 
         if not user:
-            msg = translate('Unable to authenticate with providaded credentials')
+            msg = translate(
+                'Unable to authenticate with providaded credentials')
             raise serializers.ValidationError(msg, code='authorization')
 
         attrs['user'] = user

@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as translate
 from core import models
 
+
 # here we are customizing the admin display of the page of the app core.
 class UserAdmin(BaseUserAdmin):
     ordering = ['id']
@@ -12,7 +13,7 @@ class UserAdmin(BaseUserAdmin):
         (
             translate('Permissions'),
             {
-                 'fields': (
+                'fields': (
                     'is_active',
                     'is_staff',
                     'is_superuser',
@@ -36,5 +37,6 @@ class UserAdmin(BaseUserAdmin):
             ),
         }),
     )
+
 
 admin.site.register(models.User, UserAdmin)
