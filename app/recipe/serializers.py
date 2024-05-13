@@ -48,6 +48,7 @@ class RecipeSerializer(serializers.ModelSerializer):
                 **ingredient,
             )
             recipe.ingredients.add(ingredient_obj)
+
     def create(self, validated_data):
         # removing tags to make this creation pass thru
         # the recipe model
